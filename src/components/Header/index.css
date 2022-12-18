@@ -1,0 +1,130 @@
+.nav-container {
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+@media (min-width: 767px) {
+  .nav-container {
+    padding: 15px 50px;
+  }
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.link {
+  text-decoration: none;
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 26px;
+  letter-spacing: -0.355556px;
+  color: #ffffff;
+  margin-left: 10px;
+}
+@media (min-width: 767px) {
+  .link {
+    font-size: 16px;
+    font-weight: 700;
+    margin-left: 20px;
+  }
+}
+
+.search-btn {
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  border: none;
+}
+.search-icon {
+  color: #ffffff;
+  font-size: 15px;
+  background-color: none;
+  font-weight: 700;
+  margin-right: 10px;
+}
+@media (min-width: 767px) {
+  .search-icon {
+    font-size: 25px;
+  }
+}
+.website-logo {
+  height: 15px;
+  margin-right: 10px;
+}
+@media (min-width: 767px) {
+  .website-logo {
+    height: 30px;
+  }
+}
+.search-and-profile {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.profile-img {
+  display: none;
+}
+@media (min-width: 767px) {
+  .profile-img {
+    height: 30px;
+    display: block;
+  }
+}
+.nav-links-container {
+  display: none;
+}
+@media (min-width: 767px) {
+  .nav-links-container {
+    display: block;
+  }
+}
+.menu-btn {
+  display: block;
+}
+@media (min-width: 767px) {
+  .menu-btn {
+    display: none;
+  }
+}
+.small-nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+@media (min-width: 767px) {
+  .small-nav-links {
+    display: none;
+  }
+}
+.small-link {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 26px;
+  text-decoration: none;
+  letter-spacing: -0.355556px;
+
+  color: #ffffff;
+}
+.cancel-btn {
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+}
+.cancel-icon {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+}

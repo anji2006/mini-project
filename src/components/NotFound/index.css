@@ -1,0 +1,71 @@
+.not-found-container {
+  background: linear-gradient(
+      180deg,
+      #4368eb -37.08%,
+      rgba(164, 184, 255, 0) 100%
+    ),
+    url('https://res.cloudinary.com/dququtrt4/image/upload/v1671366658/moviesApp/notfound_hr9vyi.png');
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  background-size: cover;
+}
+
+.not-found-head {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #ffffff;
+  margin-bottom: 0px;
+  padding-bottom: 10px;
+}
+@media (min-width: 767px) {
+  .not-found-head {
+    font-size: 42px;
+  }
+}
+
+.not-found-para {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.3;
+  text-align: center;
+  margin-top: 0px;
+  color: #ffffff;
+}
+@media (min-width: 767px) {
+  .not-found-para {
+    font-size: 24px;
+  }
+}
+
+.not-found-btn {
+  width: 80px;
+  height: 30px;
+  background: #ffffff;
+  border-radius: 4px;
+  color: #171f46;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 24px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+@media (min-width: 767px) {
+  .not-found-btn {
+    width: 127px;
+    height: 40px;
+    font-size: 14px;
+  }
+}
+.link {
+  text-decoration: none;
+}
