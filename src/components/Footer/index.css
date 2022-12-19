@@ -1,0 +1,42 @@
+.footer-para {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+}
+.footer-container {
+  width: 100%;
+  background: #313131;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.footer-icon-btn {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  margin: 3px;
+  background-color: transparent;
+}
+.footer-icon {
+  font-family: 'Font Awesome 5 Brands';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  color: #ffffff;
+}
+
+@media (min-width: 767px) {
+  .footer-icon-btn {
+    margin: 5px;
+  }
+  .footer-icon {
+    font-size: 18px;
+  }
+}
