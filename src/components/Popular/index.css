@@ -4,7 +4,13 @@
 }
 .popular-movies-container {
   margin: 10px 20px;
-  border: 2px solid #fff;
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+  list-style-type: none;
+  flex-wrap: wrap;
+  padding-left: 0px;
 }
 @media (min-width: 767px) {
   .popular-movies-container {
@@ -17,4 +23,61 @@
   justify-content: center;
   height: 70vh;
   width: 100%;
+}
+.popular-failure-bg {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 90vh;
+}
+.popular-failure-img {
+  width: 75%;
+}
+@media (min-width: 767px) {
+  .popular-failure-img {
+    width: 35%;
+  }
+}
+.popular-failure-para {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #ffffff;
+}
+.popular-failure-btn {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  border-radius: 5px;
+  color: #171f46;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.popular-img-item {
+  width: 100%;
+  border-radius: 5px;
+}
+.list-item {
+  width: 30%;
+  margin: 0px;
+  margin-bottom: 13px;
+}
+
+@media (min-width: 767px) {
+  .popular-img-item {
+    width: 100%;
+  }
+  .list-item {
+    width: 17%;
+    margin-bottom: 25px;
+  }
 }
