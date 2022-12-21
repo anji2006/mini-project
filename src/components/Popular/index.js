@@ -1,6 +1,7 @@
 import './index.css'
 
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
 
@@ -73,11 +74,13 @@ class Popular extends Component {
       <ul className="popular-movies-container">
         {popularList.map(eachItem => (
           <li key={eachItem.id} className="list-item">
-            <img
-              src={eachItem.posterPath}
-              alt={eachItem.title}
-              className="popular-img-item"
-            />
+            <Link to={`movies/${eachItem.id}`} className="link">
+              <img
+                src={eachItem.posterPath}
+                alt={eachItem.title}
+                className="popular-img-item"
+              />
+            </Link>
           </li>
         ))}
       </ul>
@@ -94,7 +97,11 @@ class Popular extends Component {
       <p className="popular-failure-para">
         Something went wrong. Please try again
       </p>
-      <button type="button" className="popular-failure-btn">
+      <button
+        type="button"
+        className="popular-failure-btn"
+        onClick={this.getPopularMovies}
+      >
         Try Again
       </button>
     </div>

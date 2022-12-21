@@ -22,6 +22,7 @@ class Home extends Component {
     apiTrendingStatus: apiStatusConstants.initial,
     apiOriginalStatus: apiStatusConstants.initial,
     apiPosterStatus: apiStatusConstants.initial,
+    posterDetails: {},
   }
 
   componentDidMount() {
@@ -32,7 +33,6 @@ class Home extends Component {
   getTrendingMovies = async () => {
     this.setState({
       apiTrendingStatus: apiStatusConstants.inProgress,
-      apiPosterStatus: apiStatusConstants.inProgress,
     })
 
     const token = Cookies.get('jwt_token')
@@ -56,15 +56,16 @@ class Home extends Component {
         overview: each.overview,
         title: each.title,
       }))
-      console.log(updateData)
+
+      //   console.log(updateData)
       this.setState({
-        apiTrendingStatus: apiStatusConstants.failure,
+        apiTrendingStatus: apiStatusConstants.success,
+
         trendingMovies: updateData,
       })
     } else {
       this.setState({
         apiTrendingStatus: apiStatusConstants.failure,
-        apiPosterStatus: apiStatusConstants.failure,
       })
     }
   }
@@ -72,6 +73,7 @@ class Home extends Component {
   getOriginalMovies = async () => {
     this.setState({
       apiOriginalStatus: apiStatusConstants.inProgress,
+      apiPosterStatus: apiStatusConstants.inProgress,
     })
 
     const token = Cookies.get('jwt_token')
@@ -95,33 +97,95 @@ class Home extends Component {
         overview: each.overview,
         title: each.title,
       }))
+      const moviesListLength = updateData.length
+      const index = Math.floor(Math.random() * moviesListLength)
       //   console.log(updateData)
       this.setState({
-        apiOriginalStatus: apiStatusConstants.failure,
+        apiOriginalStatus: apiStatusConstants.success,
+        apiPosterStatus: apiStatusConstants.success,
         originalMovies: updateData,
+        posterDetails: updateData[index],
       })
     } else {
       this.setState({
         apiOriginalStatus: apiStatusConstants.failure,
+        apiPosterStatus: apiStatusConstants.failure,
       })
     }
-  }
-
-  displayPosterView = () => {
-    const {trendingMovies} = this.state
-    const moviesListLength = trendingMovies.length
-
-    if (moviesListLength !== 0) {
-      const index = Math.floor(Math.random() * moviesListLength)
-      //   console.log(index)
-      return null
-    }
-    return null
   }
 
   lodingView = () => (
     <div className="loader-container-bg">
       <Loader type="TailSpin" color="#D81F26" height={40} width={40} />
+    </div>
+  )
+
+  posterSuccessView = () => {
+    const {posterDetails} = this.state
+    const {backdropPath, title, overview} = posterDetails
+    // console.log(posterDetails)
+
+    return (
+      <div
+        className="movie-item-bg"
+        style={{
+          backgroundImage: `url(${backdropPath})`,
+          backgroundSize: 'cover',
+          minHeight: '100vh',
+        }}
+      >
+        <Header />
+        <div className="content">
+          <h1 className="content-head">{title}</h1>
+          <p className="content-para">{overview}</p>
+          <button type="button" className="play-btn">
+            Play
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  displayPosterView = () => {
+    const {apiPosterStatus} = this.state
+
+    switch (apiPosterStatus) {
+      case apiStatusConstants.inProgress:
+        return (
+          <div className="movie-item-bg">
+            <Header />
+            {this.lodingView()}
+          </div>
+        )
+      case apiStatusConstants.failure:
+        return (
+          <div className="movie-item-bg">
+            <Header />
+            {this.posterFailureView()}
+          </div>
+        )
+      case apiStatusConstants.success:
+        return this.posterSuccessView()
+      default:
+        return null
+    }
+  }
+
+  posterFailureView = () => (
+    <div className="failure-container">
+      <img
+        src="https://res.cloudinary.com/dququtrt4/image/upload/v1671559431/moviesApp/alert-triangle_2_gbchy5.png"
+        alt="failure view"
+        className="failure-icon"
+      />
+      <p className="failure-para">Something went wrong. Please try again</p>
+      <button
+        type="button"
+        className="failure-btn-try"
+        onClick={this.getOriginalMoviesCall}
+      >
+        Try Again
+      </button>
     </div>
   )
 
@@ -137,14 +201,13 @@ class Home extends Component {
 
   getOriginalMoviesCall = () => {
     this.getOriginalMovies()
-    console.log('movies loading again....')
   }
 
   originalFailureView = () => (
     <div className="failure-container">
       <img
         src="https://res.cloudinary.com/dququtrt4/image/upload/v1671559431/moviesApp/alert-triangle_2_gbchy5.png"
-        alt="failure"
+        alt="failure view"
         className="failure-icon"
       />
       <p className="failure-para">Something went wrong. Please try again</p>
@@ -166,7 +229,7 @@ class Home extends Component {
     <div className="failure-container">
       <img
         src="https://res.cloudinary.com/dququtrt4/image/upload/v1671559431/moviesApp/alert-triangle_2_gbchy5.png"
-        alt="failure"
+        alt="failure view"
         className="failure-icon"
       />
       <p className="failure-para">Something went wrong. Please try again</p>
@@ -195,8 +258,8 @@ class Home extends Component {
   }
 
   originalSlickView = () => {
-    const {apiTrendingStatus} = this.state
-    switch (apiTrendingStatus) {
+    const {apiOriginalStatus} = this.state
+    switch (apiOriginalStatus) {
       case apiStatusConstants.inProgress:
         return this.lodingView()
       case apiStatusConstants.success:
@@ -212,11 +275,7 @@ class Home extends Component {
     return (
       <>
         <div className="home-main-bg">
-          <div className="movie-item-bg">
-            <Header />
-            {this.displayPosterView()}
-            <p>it ok</p>
-          </div>
+          {this.displayPosterView()}
           <div className="trending-now-container">
             <h1 className="trending-now-head">Trending Now</h1>
             <div className="trending-slick">{this.trendingSlickView()}</div>

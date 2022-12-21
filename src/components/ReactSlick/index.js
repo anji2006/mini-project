@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import Slider from 'react-slick'
 
 /* Add css to your project */
@@ -8,7 +9,7 @@ const settings = {
   dots: false,
   infinite: false,
   speed: 500,
-  slidesToShow: 5,
+  slidesToShow: 4,
   slidesToScroll: 1,
   responsive: [
     {
@@ -38,6 +39,7 @@ const settings = {
 class ReactSlick extends Component {
   renderSlider = () => {
     const {movies} = this.props
+    const {title} = movies
     // console.log(movies)
     return (
       <Slider {...settings}>
@@ -45,11 +47,9 @@ class ReactSlick extends Component {
           const {id, backdropPath} = eachLogo
           return (
             <div className="slick-item" key={id}>
-              <img
-                className="logo-image"
-                src={backdropPath}
-                alt="company logo"
-              />
+              <Link to={`/movies/${id}`} className="slick-link">
+                <img className="logo-image" src={backdropPath} alt={title} />
+              </Link>
             </div>
           )
         })}
