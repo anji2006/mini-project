@@ -20,6 +20,8 @@
 }
 .link {
   text-decoration: none;
+}
+.nav-item {
   font-family: 'HK Grotesk';
   font-style: normal;
   font-weight: 600;
@@ -28,12 +30,16 @@
   letter-spacing: -0.355556px;
   color: #ffffff;
   margin-left: 10px;
+  display: none;
 }
 @media (min-width: 767px) {
   .link {
+    margin-left: 20px;
+  }
+  .nav-item {
     font-size: 16px;
     font-weight: 700;
-    margin-left: 20px;
+    display: block;
   }
 }
 
@@ -48,7 +54,7 @@
   font-size: 15px;
   background-color: none;
   font-weight: 700;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 @media (min-width: 767px) {
   .search-icon {
@@ -98,7 +104,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  width: 100%;
+  padding: 7px 20px;
   background-color: rgba(0, 0, 0, 0.2);
 }
 @media (min-width: 767px) {
@@ -127,4 +134,32 @@
   color: #ffffff;
   font-size: 16px;
   font-weight: 600;
+}
+.nav-links-container-list {
+  list-style-type: none;
+  padding-left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  height: 25px;
+  width: 35vw;
+}
+@media (min-width: 767px) {
+  .search-container {
+    width: 35vw;
+    height: 30px;
+  }
+}
+.search-input {
+  padding: 5px 10px;
+  width: 100%;
+  outline: none;
+  border: none;
 }

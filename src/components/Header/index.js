@@ -3,24 +3,40 @@ import './index.css'
 import {Link} from 'react-router-dom'
 import {Component} from 'react'
 
-import {HiOutlineSearch, HiOutlineMenuAlt1} from 'react-icons/hi'
+import {HiOutlineSearch} from 'react-icons/hi'
 import {MdOutlineCancel} from 'react-icons/md'
 
 class Header extends Component {
   state = {
     hamburgMenu: false,
+    searchEle: false,
+    searchInput: '',
   }
 
   showNavLinks = () => {
-    this.setState({hamburgMenu: true})
+    this.setState({hamburgMenu: true, searchEle: false})
   }
 
-  cancelHamburbMenu = () => {
+  cancelHamburgMenu = () => {
     this.setState({hamburgMenu: false})
   }
 
+  renderSearchRoute = () => {
+    this.setState({searchEle: true, hamburgMenu: false})
+  }
+
+  searchResults = () => {
+    const {getSearchMoviesList} = this.props
+    const {searchInput} = this.state
+    getSearchMoviesList(searchInput)
+  }
+
+  onChangeSearchInput = event => {
+    this.setState({searchInput: event.target.value})
+  }
+
   render() {
-    const {hamburgMenu} = this.state
+    const {hamburgMenu, searchEle, searchInput} = this.state
     return (
       <>
         <nav className="nav-container">
@@ -32,19 +48,45 @@ class Header extends Component {
                 className="website-logo"
               />
             </Link>
-            <div className="nav-links-container">
+            <ul className="nav-links-container nav-links-container-list">
               <Link to="/" className="link">
-                Home
+                <li className="nav-item">Home</li>
               </Link>
               <Link to="/popular" className="link">
-                Popular
+                <li className="nav-item">Popular</li>
               </Link>
-            </div>
+            </ul>
           </div>
           <div className="search-and-profile">
-            <button type="button" className="search-btn">
-              <HiOutlineSearch className="search-icon" />
-            </button>
+            {searchEle === false ? (
+              <button
+                type="button"
+                className="search-btn"
+                onClick={this.renderSearchRoute}
+              >
+                <Link to="/search" className="link">
+                  <HiOutlineSearch className="search-icon" />
+                </Link>
+              </button>
+            ) : (
+              <div className="search-container">
+                <input
+                  type="search"
+                  className="search-input"
+                  placeholder="Search"
+                  onChange={this.onChangeSearchInput}
+                  value={searchInput}
+                />
+                <button
+                  type="button"
+                  className="search-btn"
+                  onClick={this.searchResults}
+                >
+                  <HiOutlineSearch className="search-icon" />
+                </button>
+              </div>
+            )}
+
             <Link to="/account" className="link">
               <img
                 src="https://res.cloudinary.com/dququtrt4/image/upload/v1671342991/moviesApp/Avatar_qhwxzr.png"
@@ -57,7 +99,11 @@ class Header extends Component {
               className="search-btn menu-btn"
               onClick={this.showNavLinks}
             >
-              <HiOutlineMenuAlt1 className="search-icon" />
+              <img
+                src="https://res.cloudinary.com/dququtrt4/image/upload/v1671615722/moviesApp/add-to-queue_1_dumnjf.png"
+                alt="menu"
+                className="search-icon"
+              />
             </button>
           </div>
         </nav>
@@ -75,7 +121,7 @@ class Header extends Component {
             <button
               type="button"
               className="cancel-btn"
-              onClick={this.cancelHamburbMenu}
+              onClick={this.cancelHamburgMenu}
             >
               <MdOutlineCancel className="cancel-icon" />
             </button>

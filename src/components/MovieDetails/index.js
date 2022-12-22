@@ -178,9 +178,9 @@ class MovieDetails extends Component {
           <ul className="movie-info-sub">
             <h1 className="sub-heading">Audio Available</h1>
             {spokenLanguages.map(each => (
-              <li key={each.id} className="info-details">
+              <p key={each.id} className="info-details">
                 {each.englishName}
-              </li>
+              </p>
             ))}
           </ul>
           <ul className="movie-info-sub">
