@@ -9,12 +9,11 @@ import {MdOutlineCancel} from 'react-icons/md'
 class Header extends Component {
   state = {
     hamburgMenu: false,
-    searchEle: false,
     searchInput: '',
   }
 
   showNavLinks = () => {
-    this.setState({hamburgMenu: true, searchEle: false})
+    this.setState({hamburgMenu: true})
   }
 
   cancelHamburgMenu = () => {
@@ -22,13 +21,12 @@ class Header extends Component {
   }
 
   renderSearchRoute = () => {
-    this.setState({searchEle: true, hamburgMenu: false})
-  }
-
-  searchResults = () => {
-    const {getSearchMoviesList} = this.props
     const {searchInput} = this.state
-    getSearchMoviesList(searchInput)
+    const {getSearchMoviesList, searchRouteActive} = this.props
+
+    if (searchInput !== '' && searchRouteActive) {
+      getSearchMoviesList(searchInput)
+    }
   }
 
   onChangeSearchInput = event => {
@@ -36,15 +34,16 @@ class Header extends Component {
   }
 
   render() {
-    const {hamburgMenu, searchEle, searchInput} = this.state
+    const {hamburgMenu, searchInput} = this.state
+    const {searchRouteActive} = this.props
     return (
       <>
         <nav className="nav-container">
           <div className="logo-container">
             <Link to="/" className="link">
               <img
-                src="https://res.cloudinary.com/dququtrt4/image/upload/v1671342038/moviesApp/Group_7399_u2glbo.png"
                 alt="website logo"
+                src="https://res.cloudinary.com/dququtrt4/image/upload/v1671342038/moviesApp/Group_7399_u2glbo.png"
                 className="website-logo"
               />
             </Link>
@@ -58,18 +57,8 @@ class Header extends Component {
             </ul>
           </div>
           <div className="search-and-profile">
-            {searchEle === false ? (
-              <button
-                type="button"
-                className="search-btn"
-                onClick={this.renderSearchRoute}
-              >
-                <Link to="/search" className="link">
-                  <HiOutlineSearch className="search-icon" />
-                </Link>
-              </button>
-            ) : (
-              <div className="search-container">
+            <div className="search-container">
+              {searchRouteActive && (
                 <input
                   type="search"
                   className="search-input"
@@ -77,15 +66,18 @@ class Header extends Component {
                   onChange={this.onChangeSearchInput}
                   value={searchInput}
                 />
+              )}
+              <Link to="/search" className="link">
                 <button
                   type="button"
                   className="search-btn"
-                  onClick={this.searchResults}
+                  onClick={this.renderSearchRoute}
+                  testid="searchButton"
                 >
-                  <HiOutlineSearch className="search-icon" />
+                  <HiOutlineSearch className="search-icon " />
                 </button>
-              </div>
-            )}
+              </Link>
+            </div>
 
             <Link to="/account" className="link">
               <img

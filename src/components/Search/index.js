@@ -8,6 +8,7 @@ import Cookies from 'js-cookie'
 import Footer from '../Footer'
 import Header from '../Header'
 
+const searchRouteActive = true
 const apiStatusConstants = {
   initial: 'INITIAL',
   success: 'SUCCESS',
@@ -49,7 +50,7 @@ class Search extends Component {
         posterPath: each.poster_path,
         title: each.title,
       }))
-      console.log(updateData)
+      //   console.log(updateData)
       this.setState({
         apiStatus: apiStatusConstants.success,
         searchMoviesList: updateData,
@@ -62,7 +63,7 @@ class Search extends Component {
   }
 
   lodingView = () => (
-    <div className="loader-container">
+    <div className="loader-container" testid="loader">
       <Loader type="TailSpin" color="#D81F26" height={40} width={40} />
     </div>
   )
@@ -98,6 +99,10 @@ class Search extends Component {
     )
   }
 
+  getSearchMoviesListTry = () => {
+    this.getSearchMoviesList(searchInput)
+  }
+
   searchViewFailure = () => (
     <div className="popular-failure-bg">
       <img
@@ -111,7 +116,7 @@ class Search extends Component {
       <button
         type="button"
         className="popular-failure-btn"
-        onClick={this.getSearchMoviesList}
+        onClick={this.getSearchMoviesListTry}
       >
         Try Again
       </button>
@@ -136,7 +141,10 @@ class Search extends Component {
     return (
       <>
         <div className="search-bg">
-          <Header getSearchMoviesList={this.getSearchMoviesList} />
+          <Header
+            getSearchMoviesList={this.getSearchMoviesList}
+            searchRouteActive={searchRouteActive}
+          />
 
           <ul className="search-list-container">
             {this.searchMoviesListView()}

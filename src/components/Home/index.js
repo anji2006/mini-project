@@ -115,7 +115,7 @@ class Home extends Component {
   }
 
   lodingView = () => (
-    <div className="loader-container-bg">
+    <div className="loader-container-bg" testid="loader">
       <Loader type="TailSpin" color="#D81F26" height={40} width={40} />
     </div>
   )

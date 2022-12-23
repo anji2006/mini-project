@@ -50,7 +50,7 @@ class Popular extends Component {
         posterPath: each.poster_path,
         title: each.title,
       }))
-      console.log(updateData)
+      //   console.log(updateData)
       this.setState({
         apiStatus: apiStatusConstants.success,
         popularList: updateData,
@@ -63,7 +63,7 @@ class Popular extends Component {
   }
 
   lodingView = () => (
-    <div className="loader-container">
+    <div className="loader-container" testid="loader">
       <Loader type="TailSpin" color="#D81F26" height={40} width={40} />
     </div>
   )
@@ -73,15 +73,19 @@ class Popular extends Component {
     return (
       <ul className="popular-movies-container">
         {popularList.map(eachItem => (
-          <li key={eachItem.id} className="list-item">
-            <Link to={`movies/${eachItem.id}`} className="link">
+          <Link
+            to={`movies/${eachItem.id}`}
+            className="popular-image-link"
+            key={eachItem.id}
+          >
+            <li className="list-item">
               <img
                 src={eachItem.posterPath}
                 alt={eachItem.title}
                 className="popular-img-item"
               />
-            </Link>
-          </li>
+            </li>
+          </Link>
         ))}
       </ul>
     )

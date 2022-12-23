@@ -39,12 +39,11 @@ const settings = {
 class ReactSlick extends Component {
   renderSlider = () => {
     const {movies} = this.props
-    const {title} = movies
     // console.log(movies)
     return (
       <Slider {...settings}>
         {movies.map(eachLogo => {
-          const {id, backdropPath} = eachLogo
+          const {id, backdropPath, title} = eachLogo
           return (
             <div className="slick-item" key={id}>
               <Link to={`/movies/${id}`} className="slick-link">

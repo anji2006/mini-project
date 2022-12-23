@@ -68,6 +68,10 @@
   box-shadow: 0px 5px 9px 0px rgb(185, 176, 176);
 }
 .list-item {
+  width: 100%;
+}
+.popular-image-link {
+  text-decoration: none;
   width: 30%;
   margin: 0px;
   margin-bottom: 13px;
@@ -77,8 +81,11 @@
   .popular-img-item {
     width: 100%;
   }
-  .list-item {
+  .popular-image-link {
     width: 17%;
     margin-bottom: 25px;
+  }
+  .list-item {
+    width: 100%;
   }
 }

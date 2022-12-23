@@ -23,11 +23,7 @@ class MovieDetails extends Component {
   }
 
   componentDidMount() {
-    const {match} = this.props
-    const {params} = match
-    const {id} = params
-
-    this.getMovieDetails(id)
+    this.getMovieDetailsAgain()
   }
 
   getMovieDetails = async id => {
@@ -93,8 +89,15 @@ class MovieDetails extends Component {
     }
   }
 
+  getMovieDetailsAgain = () => {
+    const {match} = this.props
+    const {params} = match
+    const {id} = params
+    this.getMovieDetails(id)
+  }
+
   lodingView = () => (
-    <div className="loader-container">
+    <div className="loader-container" testid="loader">
       <Loader type="TailSpin" color="#D81F26" height={40} width={40} />
     </div>
   )
@@ -112,7 +115,7 @@ class MovieDetails extends Component {
       <button
         type="button"
         className="popular-failure-btn"
-        onClick={this.getMovieDetails}
+        onClick={this.getMovieDetailsAgain}
       >
         Try Again
       </button>
@@ -144,6 +147,8 @@ class MovieDetails extends Component {
     const adultRating = adult ? 'A' : 'U/A'
 
     const year = format(new Date(releaseDate), 'yyyy')
+
+    const releasedDateFormat = format(new Date(releaseDate), 'do MMMM yyyy')
     // console.log(year)
 
     return (
@@ -200,7 +205,7 @@ class MovieDetails extends Component {
             </div>
             <div className="movie-info-sub-rating">
               <h1 className="sub-heading">Release Date</h1>
-              <p className="info-details">{releaseDate}</p>
+              <p className="info-details">{releasedDateFormat}</p>
             </div>
           </ul>
         </div>
