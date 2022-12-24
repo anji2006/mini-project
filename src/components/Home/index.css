@@ -156,3 +156,9 @@
   border: none;
   border-radius: 4px;
 }
+.top-rated-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}

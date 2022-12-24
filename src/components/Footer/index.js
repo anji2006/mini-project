@@ -19,6 +19,7 @@ const Footer = () => (
       </button>
     </div>
     <p className="footer-para">Contact us</p>
+    <p className="footer-para">Developed By Anjaneyulu Veeranki</p>
   </div>
 )
 

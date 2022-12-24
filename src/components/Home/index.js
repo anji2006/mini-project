@@ -1,6 +1,7 @@
 import './index.css'
 
 import {Component} from 'react'
+
 import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
 
@@ -19,6 +20,8 @@ class Home extends Component {
   state = {
     trendingMovies: [],
     originalMovies: [],
+    topRatedMovies: [],
+    apiTopRatedStatus: apiStatusConstants.initial,
     apiTrendingStatus: apiStatusConstants.initial,
     apiOriginalStatus: apiStatusConstants.initial,
     apiPosterStatus: apiStatusConstants.initial,
@@ -28,6 +31,7 @@ class Home extends Component {
   componentDidMount() {
     this.getOriginalMovies()
     this.getTrendingMovies()
+    this.getTopRatedMovies()
   }
 
   getTrendingMovies = async () => {
@@ -66,6 +70,46 @@ class Home extends Component {
     } else {
       this.setState({
         apiTrendingStatus: apiStatusConstants.failure,
+      })
+    }
+  }
+
+  getTopRatedMovies = async () => {
+    this.setState({
+      apiTopRatedStatus: apiStatusConstants.inProgress,
+    })
+
+    const token = Cookies.get('jwt_token')
+    // console.log(token)
+    const options = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method: 'GET',
+    }
+
+    const url = 'https://apis.ccbp.in/movies-app/top-rated-movies'
+    const response = await fetch(url, options)
+    if (response.ok) {
+      const data = await response.json()
+      //   console.log(data)
+      const updateData = data.results.map(each => ({
+        backdropPath: each.backdrop_path,
+        id: each.id,
+        posterPath: each.poster_path,
+        overview: each.overview,
+        title: each.title,
+      }))
+
+      //   console.log(updateData)
+      this.setState({
+        apiTopRatedStatus: apiStatusConstants.success,
+
+        topRatedMovies: updateData,
+      })
+    } else {
+      this.setState({
+        apiTopRatedStatus: apiStatusConstants.failure,
       })
     }
   }
@@ -199,10 +243,6 @@ class Home extends Component {
     return <ReactSlick movies={originalMovies} />
   }
 
-  getOriginalMoviesCall = () => {
-    this.getOriginalMovies()
-  }
-
   originalFailureView = () => (
     <div className="failure-container">
       <img
@@ -271,6 +311,43 @@ class Home extends Component {
     }
   }
 
+  topRatedFailureView = () => (
+    <div className="failure-container">
+      <img
+        src="https://res.cloudinary.com/dququtrt4/image/upload/v1671559431/moviesApp/alert-triangle_2_gbchy5.png"
+        alt="failure view"
+        className="failure-icon"
+      />
+      <p className="failure-para">Something went wrong. Please try again</p>
+      <button
+        type="button"
+        className="failure-btn-try"
+        onClick={this.getTopRatedMovies}
+      >
+        Try Again
+      </button>
+    </div>
+  )
+
+  topRatedSuccessView = () => {
+    const {topRatedMovies} = this.state
+    return <ReactSlick movies={topRatedMovies} />
+  }
+
+  topRatedView = () => {
+    const {apiTopRatedStatus} = this.state
+    switch (apiTopRatedStatus) {
+      case apiStatusConstants.inProgress:
+        return this.lodingView()
+      case apiStatusConstants.success:
+        return this.topRatedSuccessView()
+      case apiStatusConstants.failure:
+        return this.topRatedFailureView()
+      default:
+        return null
+    }
+  }
+
   render() {
     return (
       <>
@@ -279,6 +356,10 @@ class Home extends Component {
           <div className="trending-now-container">
             <h1 className="trending-now-head">Trending Now</h1>
             <div className="trending-slick">{this.trendingSlickView()}</div>
+          </div>
+          <div className="trending-now-container">
+            <h1 className="trending-now-head">Top Rated</h1>
+            <div className="trending-slick">{this.topRatedView()}</div>
           </div>
           <div className="trending-now-container">
             <h1 className="trending-now-head">Originals</h1>

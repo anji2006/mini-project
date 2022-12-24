@@ -74,7 +74,7 @@ class Login extends Component {
             <h1 className="login-heading">Login</h1>
             <div className="input-container">
               <label htmlFor="user-name" className="username-label">
-                USERNAME
+                USERNAME (rahul)
               </label>
               <input
                 id="user-name"
@@ -87,7 +87,7 @@ class Login extends Component {
             </div>
             <div className="input-container">
               <label htmlFor="password" className="username-label">
-                PASSWORD
+                PASSWORD (rahul@2021)
               </label>
               <input
                 id="password"
