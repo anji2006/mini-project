@@ -24,7 +24,7 @@ class Account extends Component {
               <p className="membership-para">Member ship</p>
               <div className="membership-details-container">
                 <p className="text">anjiveeranki777@gmail.com</p>
-                <p className="text">Password</p>
+                <p className="text">Password :**********</p>
               </div>
             </div>
             <div className="details-container">
